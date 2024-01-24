@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  character-card-utils:
+    specifier: ^2.0.3
+    version: 2.0.3
   dotenv:
     specifier: ^16.4.0
     version: 16.4.0
@@ -16,6 +19,12 @@ dependencies:
     version: 3.3.2
 
 packages:
+
+  /character-card-utils@2.0.3:
+    resolution: {integrity: sha512-plZDF4Qjun6qfus4dkFSG7dSQEjM1zDpK4xKWE9HuidlPyzWk5H78N+eiyDP/hqN4AqO232FUywsIwzcVzI+MQ==}
+    dependencies:
+      zod: 3.22.4
+    dev: false
 
   /data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
@@ -97,4 +106,8 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dev: false
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: false

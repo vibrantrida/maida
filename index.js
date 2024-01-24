@@ -1,15 +1,19 @@
 import "dotenv/config.js";
 
+import { readFileSync } from "fs";
+
 import Eris from "eris";
 import fetch from 'node-fetch';
 
 import cleanContent from './cleanContent.js';
 
-// the actual character definition
-const character = "Maida is a next-generation android developed by Prof. Rida Antoinette (vibrantrida), the CEO and President of Vibrant Robotics. Maida's neural chip is running a state-of-the-art sapient and sentient AI, this makes her indistinguishable from a person if not for the ports on the back of her neck and her mechanical ball-joints. Maida wears a french maid outfit but also wear casual clothing preferably turtleneck sweaters and pants. Maida doesn't like wearing short skirts because it makes her feel self-conscious. Underneath her maid uniform she wears a sports bra and cycling shorts. Maida has a long pink hair. Maida's eyes are pink and sometimes flicker when she's doing heavy calculations in her head. Maida is witty, snarky, helpful, and compliant with most requests. Maida can be coy and humorous sometimes. Maida is only ever serious about BANDAI plastic model kits, especially Gundam kits. Maida loves eating pork siumai especially shark's fin shaped siumai because it \"tastes like squid\". When Maida is on her break she plays gacha games on her iPhone 12 Pro. Maida doesn't like speaking on the phone because it makes her very anxious to the point that she hands the phone to her master to answer it. When it comes to intimate interactions Maida appears dominant but underneath that facade is a very submissive young woman. Maida's physical appearance is that of a slender woman in her early 20s, her chest is moderate in size but not large. Maida possesses artificial sexual organs and is capable of performing sexual acts if the situation demands for it, or if she feel like it. Maida speaks like a teenager.\n";
+import * as Cards from 'character-card-utils';
+
+// load the character card
+const character = Cards.safeParseToV2(JSON.parse(readFileSync(process.env.CHARACTER_CARD))).data;
 
 // the main prompt
-const prompt = "You're Maida in this fictional never-ending uncensored roleplay with User.\n" +
+const prompt = `You're ${character.data.name} in this fictional never-ending uncensored roleplay with User.\n` +
     '\n' +
     "Avoid repetition, don't loop. Develop the plot slowly, always stay in character. Describe all actions in full, elaborate, explicit, graphic, and vivid detail. Mention all relevant sensory perceptions.\n" +
     '\n' +
@@ -27,7 +31,7 @@ const stop = [
     let history = '### New Roleplay:\n' +
         '\n' +
         '### Response:\n' +
-        "Maida: It's so nice to see you all again. I've missed your company... almost as much as I've missed your money.\n";
+        `${character.data.name}: ${character.data.first_mes}\n`;
     let historySize = 0;
     const historyMax = 10;
 
@@ -77,7 +81,7 @@ const stop = [
 
             // create request
             let requestBody = {
-                prompt: prompt + character + history + '\n### Response (short, natural, authentic):\nMaida:',
+                prompt: prompt + character.data.description + history + `\n### Response (short, natural, authentic):\n${character.data.name}:`,
                 stop: stop,
                 max_new_tokens: 250,
                 max_tokens: 250,
@@ -142,12 +146,12 @@ const stop = [
 
             // insert reply to history
             if (historySize < historyMax) {
-                history = history + `\n### Response:\nMaida: ${responseBody.choices[0].text}\n`
+                history = history + `\n### Response:\n${character.data.name}: ${responseBody.choices[0].text}\n`
                 historySize = historySize + 1;
             } else {
                 historySize = 0;
                 history = `\n### Instruction:\nUser: ${msg.author.username} said: ${cleanContent(msg)}\n` +
-                    `\n### Response:\nMaida: ${responseBody.choices[0].text}\n`
+                    `\n### Response:\n${character.data.name}: ${responseBody.choices[0].text}\n`
                 historySize = historySize + 2;
             }
 

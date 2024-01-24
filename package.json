@@ -11,6 +11,7 @@
   "author": "vibrantsmug@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "character-card-utils": "^2.0.3",
     "dotenv": "^16.4.0",
     "eris": "^0.17.2",
     "node-fetch": "^3.3.2"
