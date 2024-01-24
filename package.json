@@ -1,0 +1,18 @@
+{
+  "name": "maida",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "keywords": [],
+  "author": "vibrantsmug@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "eris": "^0.17.2",
+    "node-fetch": "^3.3.2"
+  }
+}
